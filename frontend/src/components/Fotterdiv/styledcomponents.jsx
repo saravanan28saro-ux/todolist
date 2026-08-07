@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 export const FooterDiv = styled.div`
-    border: 5px solid black;
+    border: 0px solid black;
     height: 100vh;
     width: 20%;
 `;
@@ -16,7 +16,10 @@ export const Logodiv = styled.div`
     border-bottom: 1px solid gray;
     `;
 export const Username = styled.div`
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     
 `
 export const User = styled.div`

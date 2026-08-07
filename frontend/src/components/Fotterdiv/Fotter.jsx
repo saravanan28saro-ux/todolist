@@ -1,27 +1,30 @@
-import { FooterDiv ,Logodiv,Username,User,Userimage} from "./styledcomponents";
-import React, { useState } from "react";
+import React from "react";
+import {
+  FooterDiv,
+  Logodiv,
+  Username,
+  User,
+  Userimage,
+} from "./styledcomponents";
+import userdata from "../Data/userdata.jsx";
+
 const Footer = () => {
-const [user, setUser] = useState({
-    name: "John Doe",
-    role: "Software Engineer",
-    avatar: "user-avatar.jpg"
-  });
+  const user = userdata;
 
   return (
     <FooterDiv>
       <Logodiv>
-            <i className="bi bi-bell-fill"></i>
-      
-            <User>
-                <Userimage>
-                    <img src="user-avatar.jpg" alt="User Avatar"/>
-                </Userimage>
-                <username>
-                     <h1 style={{fontSize:"20px"}}>{user.name}</h1>
-                <p style={{fontSize:"10px"}}>{user.role}</p>
-                </username>
-            </User>
-          </Logodiv>
+        <User>
+          <Userimage>
+            <img src={user.avatar} alt="User Avatar" />
+          </Userimage>
+
+          <Username>
+            <h1 style={{ fontSize: "20px" }}>{user.name}</h1>
+            <p style={{ fontSize: "10px" }}>{user.role}</p>
+          </Username>
+        </User>
+      </Logodiv>
     </FooterDiv>
   );
 };
