@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 export const MainDiv = styled.div`
 
-    border: 1px solid black;
+    
     border-top: none;
     height: 100vh;
-    width: 70%;
+    width: 100%;
 `;
 
 export const Tittlediv = styled.div`

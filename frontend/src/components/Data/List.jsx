@@ -41,10 +41,5 @@ export const list = [
     icon: "bi-box-arrow-right",
     class: "inactive"
   },
-  {
-    name:"Add Task",
-    path:"/add-task",
-    icon:"bi-plus-circle",
-    class:"active"
-  }
+ 
 ];
