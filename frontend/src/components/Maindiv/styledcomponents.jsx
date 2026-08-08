@@ -1,23 +1,45 @@
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
-export const MainDiv = styled.div`
 
-    
-    border-top: none;
-    height: 100vh;
-    width: 100%;
+export const MainDiv = styled.div`
+  border-top: none;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 `;
 
 export const Tittlediv = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+  @media (max-width: 768px) {
+    padding: 15px;
+    padding-top: 70px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 15px 10px;
+    padding-top: 70px;
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
+
 export const SearchBox = styled.div`
   position: relative;
   width: 300px;
+
+  @media (max-width: 768px) {
+    width: 250px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `;
 
 export const SearchIcon = styled(FiSearch)`
@@ -34,25 +56,56 @@ export const Input = styled.input`
   padding: 10px 10px 10px 40px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: blue;
+    box-shadow: 0 0 0 3px rgba(0, 0, 255, 0.08);
+  }
 `;
 
 export const Carddiv = styled.div`
   display: flex;
-  justify-content:space-around;
-    flex-wrap: wrap;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 20px;
 
-    `;
+  @media (max-width: 768px) {
+    gap: 15px;
+    padding: 0 15px;
+  }
 
-export const Cardbox=styled.div`
-padding:10px;
-border-radius:10px;
-color:white;
-width:20%;
+  @media (max-width: 480px) {
+    gap: 12px;
+    padding: 0 10px;
+  }
+`;
 
-transition: all 0.3s ease;
+export const Cardbox = styled.div`
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  width: 20%;
+  box-sizing: border-box;
+
+  transition: all 0.3s ease;
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  @media (max-width: 1200px) {
+    width: 22%;
+  }
+
+  @media (max-width: 768px) {
+    width: 45%;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 
@@ -62,18 +115,27 @@ export const Tasklist = styled.div`
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  padding :20px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 export const List = styled.div`
   width: 100%;
   min-height: 80px;
   padding: 18px 20px;
-  
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 15px;
 
   background: white;
   border: 1px solid #e5e7eb;
@@ -82,11 +144,17 @@ export const List = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   transition: all 0.25s ease;
+  box-sizing: border-box;
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     border-color: #2563eb;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch;
   }
 `;
 
@@ -113,6 +181,11 @@ export const TaskDetails = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
+
+  @media (max-width: 480px) {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 `;
 
 export const Priority = styled.span`

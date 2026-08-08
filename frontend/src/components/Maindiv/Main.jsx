@@ -42,18 +42,15 @@ const Main = ({
     useState("");
 
 
-  // Make sure tasks is always an array
+  
   const Task = tasks || [];
 
 
-  // =========================
-  // HEADER FILTER
-  // =========================
 
   let filteredTasks = Task;
 
 
-  // My Task
+  
   if (
     location.pathname === "/my-task"
   ) {
@@ -63,7 +60,7 @@ const Main = ({
   }
 
 
-  // Completed
+  
   else if (
     location.pathname === "/completed"
   ) {
@@ -76,7 +73,7 @@ const Main = ({
   }
 
 
-  // Priority
+  
   else if (
     location.pathname === "/priority"
   ) {
@@ -90,7 +87,7 @@ const Main = ({
   }
 
 
-  // Today
+  
   else if (
     location.pathname === "/today"
   ) {
@@ -107,7 +104,7 @@ const Main = ({
   }
 
 
-  // Upcoming
+  
   else if (
     location.pathname === "/upcoming"
   ) {
@@ -125,9 +122,7 @@ const Main = ({
   }
 
 
-  // =========================
-  // SEARCH
-  // =========================
+
 
   filteredTasks =
     filteredTasks.filter((task) =>
@@ -139,9 +134,7 @@ const Main = ({
     );
 
 
-  // =========================
-  // CARDS
-  // =========================
+
 
   const card = [
 
@@ -190,9 +183,7 @@ const Main = ({
   ];
 
 
-  // =========================
-  // COMPLETE TASK
-  // =========================
+
 
   const handleStatusClick = (task) => {
 
@@ -217,9 +208,6 @@ const Main = ({
     <MainDiv>
 
 
-      {/* =========================
-          TITLE
-      ========================= */}
 
       <Tittlediv>
 
@@ -243,7 +231,7 @@ const Main = ({
         </div>
 
 
-        {/* SEARCH */}
+        
 
         <SearchBox>
 
@@ -264,10 +252,6 @@ const Main = ({
 
       </Tittlediv>
 
-
-      {/* =========================
-          CARDS
-      ========================= */}
 
       <Carddiv>
 
@@ -304,9 +288,7 @@ const Main = ({
       </Carddiv>
 
 
-      {/* =========================
-          TASK LIST
-      ========================= */}
+
 
       <Tasklist>
 
@@ -323,7 +305,7 @@ const Main = ({
             <List key={task.id}>
 
 
-              {/* TASK INFO */}
+              
 
               <TaskInfo>
 
@@ -348,19 +330,19 @@ const Main = ({
               </TaskInfo>
 
 
-              {/* TASK DETAILS */}
+              
 
               <TaskDetails>
 
 
-                {/* PRIORITY */}
+                
 
                 <Priority>
                   {task.priority}
                 </Priority>
 
 
-                {/* STATUS */}
+                
 
                 <Status
                   onClick={() =>
@@ -386,7 +368,7 @@ const Main = ({
                 </Status>
 
 
-                {/* EDIT */}
+                
 
                 <ActionButton
                   onClick={() =>
@@ -398,7 +380,7 @@ const Main = ({
                 </ActionButton>
 
 
-                {/* DELETE */}
+                
 
                 <ActionButton
                   onClick={() =>

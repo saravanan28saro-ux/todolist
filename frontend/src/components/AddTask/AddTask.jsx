@@ -35,7 +35,7 @@ const AddTask = ({
     });
 
 
-  // Load task when editing
+  
   useEffect(() => {
 
     if (editTask) {
@@ -72,7 +72,7 @@ const AddTask = ({
   }, [editTask]);
 
 
-  // Input change
+  
   const handleChange = (e) => {
 
     const {
@@ -88,7 +88,7 @@ const AddTask = ({
   };
 
 
-  // Submit
+  
   const handleSubmit = (e) => {
 
     e.preventDefault();
@@ -108,7 +108,7 @@ const AddTask = ({
     }
 
 
-    // UPDATE
+    
     if (editTask) {
 
       onUpdateTask(
@@ -118,7 +118,7 @@ const AddTask = ({
 
     }
 
-    // ADD
+    
     else {
 
       onAddTask(task);
@@ -145,7 +145,7 @@ const AddTask = ({
         </FormTitle>
 
 
-        {/* TASK NAME */}
+      
 
         <FormGroup>
 
@@ -164,7 +164,7 @@ const AddTask = ({
         </FormGroup>
 
 
-        {/* DATE */}
+        
 
         <FormGroup>
 
@@ -182,7 +182,7 @@ const AddTask = ({
         </FormGroup>
 
 
-        {/* TIME */}
+        
 
         <FormGroup>
 
@@ -200,7 +200,7 @@ const AddTask = ({
         </FormGroup>
 
 
-        {/* PRIORITY */}
+        
 
         <FormGroup>
 
@@ -231,7 +231,7 @@ const AddTask = ({
         </FormGroup>
 
 
-        {/* STATUS */}
+        
 
         <FormGroup>
 
@@ -258,7 +258,7 @@ const AddTask = ({
         </FormGroup>
 
 
-        {/* BUTTONS */}
+        
 
         <ButtonGroup>
 

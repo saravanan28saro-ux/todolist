@@ -7,7 +7,7 @@ const getStoredTasks = () => {
     return JSON.parse(storedTasks);
   }
 
-  // Initial tasks
+  
   const defaultTasks = [
     {
       id: 1,
@@ -53,7 +53,7 @@ const saveTasks = (tasks) => {
 };
 
 
-// Get all tasks
+
 export const getTasks = () => {
   return getStoredTasks();
 };
@@ -79,7 +79,7 @@ export const addTask = (task) => {
 };
 
 
-// Update task
+
 export const updateTask = (
   id,
   updatedTask
@@ -101,7 +101,7 @@ export const updateTask = (
 };
 
 
-// Delete permanently
+
 export const deleteTask = (id) => {
   const tasks = getStoredTasks();
 
@@ -115,7 +115,7 @@ export const deleteTask = (id) => {
 };
 
 
-// Dashboard cards
+
 export const getCardData = () => {
   const tasks = getStoredTasks();
 
