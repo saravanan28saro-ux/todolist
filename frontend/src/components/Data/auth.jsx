@@ -1,17 +1,41 @@
+
 const USERS_KEY = "users";
-const CURRENT_USER_KEY = "loggedInUser";
+const CURRENT_USER_KEY = "currentUser";
 
+// Get all users
 export const getUsers = () => {
-  const users = localStorage.getItem(USERS_KEY);
+  const data = localStorage.getItem(USERS_KEY);
 
-  return users ? JSON.parse(users) : [];
+  if (!data) {
+    return [];
+  }
+
+  try {
+    const users = JSON.parse(data);
+    return Array.isArray(users) ? users : [];
+  } catch {
+    return [];
+  }
 };
 
-export const signupUser = (user) => {
+// Signup
+export const signupUser = ({
+  name,
+  email,
+  mobile,
+  password,
+}) => {
   const users = getUsers();
 
+  const cleanEmail = String(email)
+    .trim()
+    .toLowerCase();
+
   const existingUser = users.find(
-    (item) => item.email.toLowerCase() === user.email.toLowerCase()
+    (user) =>
+      String(user.email)
+        .trim()
+        .toLowerCase() === cleanEmail
   );
 
   if (existingUser) {
@@ -23,17 +47,17 @@ export const signupUser = (user) => {
 
   const newUser = {
     id: Date.now(),
-    name: user.name,
-    email: user.email,
-    mobile: user.mobile,
-    password: user.password,
+    name: String(name).trim(),
+    email: cleanEmail,
+    mobile: String(mobile),
+    password: String(password),
   };
 
-  const updatedUsers = [...users, newUser];
+  users.push(newUser);
 
   localStorage.setItem(
     USERS_KEY,
-    JSON.stringify(updatedUsers)
+    JSON.stringify(users)
   );
 
   return {
@@ -42,14 +66,33 @@ export const signupUser = (user) => {
   };
 };
 
-export const loginUser = (email, password) => {
+// Login
+export const loginUser = ({
+  email,
+  password,
+}) => {
   const users = getUsers();
 
-  const user = users.find(
-    (item) =>
-      item.email.toLowerCase() === email.toLowerCase() &&
-      item.password === password
-  );
+  const cleanEmail = String(email)
+    .trim()
+    .toLowerCase();
+
+  const cleanPassword = String(password);
+
+  const user = users.find((user) => {
+    const storedEmail = String(user.email)
+      .trim()
+      .toLowerCase();
+
+    const storedPassword = String(
+      user.password
+    );
+
+    return (
+      storedEmail === cleanEmail &&
+      storedPassword === cleanPassword
+    );
+  });
 
   if (!user) {
     return {
@@ -58,34 +101,47 @@ export const loginUser = (email, password) => {
     };
   }
 
-  const loggedInUser = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    mobile: user.mobile,
-  };
-
   localStorage.setItem(
     CURRENT_USER_KEY,
-    JSON.stringify(loggedInUser)
+    JSON.stringify(user)
   );
 
   return {
     success: true,
-    user: loggedInUser,
+    user,
   };
 };
 
+// Get current logged-in user
 export const getCurrentUser = () => {
-  const user = localStorage.getItem(CURRENT_USER_KEY);
+  const data = localStorage.getItem(
+    CURRENT_USER_KEY
+  );
 
-  return user ? JSON.parse(user) : null;
+  if (!data) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
 };
 
+// Logout
 export const logoutUser = () => {
-  localStorage.removeItem(CURRENT_USER_KEY);
+  localStorage.removeItem(
+    CURRENT_USER_KEY
+  );
 };
 
+// Check login
 export const isLoggedIn = () => {
-  return localStorage.getItem(CURRENT_USER_KEY) !== null;
+  return Boolean(
+    localStorage.getItem(
+      CURRENT_USER_KEY
+    )
+  );
 };
+

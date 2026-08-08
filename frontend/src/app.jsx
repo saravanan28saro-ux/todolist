@@ -1,4 +1,6 @@
+
 import React, { useState } from "react";
+
 import {
   BrowserRouter,
   Routes,
@@ -20,10 +22,7 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-import {
-  getCurrentUser,
-  isLoggedIn,
-} from "./components/Data/auth";
+import { isLoggedIn } from "./components/Data/auth";
 
 
 // ============================
@@ -31,11 +30,14 @@ import {
 // ============================
 
 function Dashboard() {
+
   const [tasks, setTasks] = useState(getTasks());
 
-  const [showAddTask, setShowAddTask] = useState(false);
+  const [showAddTask, setShowAddTask] =
+    useState(false);
 
-  const [editTask, setEditTask] = useState(null);
+  const [editTask, setEditTask] =
+    useState(null);
 
 
   // ============================
@@ -43,6 +45,7 @@ function Dashboard() {
   // ============================
 
   const handleAddTask = (task) => {
+
     addTask(task);
 
     setTasks(getTasks());
@@ -58,6 +61,7 @@ function Dashboard() {
   // ============================
 
   const handleUpdateTask = (id, updatedTask) => {
+
     updateTask(id, updatedTask);
 
     setTasks(getTasks());
@@ -73,6 +77,7 @@ function Dashboard() {
   // ============================
 
   const handleDeleteTask = (id) => {
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this task?"
     );
@@ -92,6 +97,7 @@ function Dashboard() {
   // ============================
 
   const handleEditTask = (task) => {
+
     setEditTask(task);
 
     setShowAddTask(true);
@@ -103,6 +109,7 @@ function Dashboard() {
   // ============================
 
   const handleCancel = () => {
+
     setShowAddTask(false);
 
     setEditTask(null);
@@ -110,6 +117,7 @@ function Dashboard() {
 
 
   return (
+
     <div
       style={{
         display: "flex",
@@ -133,12 +141,14 @@ function Dashboard() {
 
 
       {showAddTask && (
+
         <AddTask
           editTask={editTask}
           onAddTask={handleAddTask}
           onUpdateTask={handleUpdateTask}
           onCancel={handleCancel}
         />
+
       )}
 
     </div>
@@ -151,8 +161,35 @@ function Dashboard() {
 // ============================
 
 const ProtectedRoute = ({ children }) => {
+
   if (!isLoggedIn()) {
-    return <Navigate to="/login" replace />;
+
+    return (
+      <Navigate
+        to="/login"
+        replace
+      />
+    );
+  }
+
+  return children;
+};
+
+
+// ============================
+// PUBLIC ROUTE
+// ============================
+
+const PublicRoute = ({ children }) => {
+
+  if (isLoggedIn()) {
+
+    return (
+      <Navigate
+        to="/my-task"
+        replace
+      />
+    );
   }
 
   return children;
@@ -164,27 +201,62 @@ const ProtectedRoute = ({ children }) => {
 // ============================
 
 function App() {
+
   return (
+
     <BrowserRouter>
 
       <Routes>
 
+        {/* LOGIN */}
+
         <Route
           path="/login"
-          element={<Login />}
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
         />
+
+
+        {/* SIGNUP */}
 
         <Route
           path="/signup"
-          element={<Signup />}
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
         />
 
+
+        {/* DASHBOARD */}
+
         <Route
-          path="/*"
+          path="/my-task"
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
+          }
+        />
+
+
+        {/* ANY UNKNOWN URL */}
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to={
+                isLoggedIn()
+                  ? "/my-task"
+                  : "/login"
+              }
+              replace
+            />
           }
         />
 
@@ -194,4 +266,6 @@ function App() {
   );
 }
 
+
 export default App;
+

@@ -20,7 +20,7 @@ import React, {
   useState,
 } from "react";
 
-
+import Userdata from "../Data/userdata.jsx";
 
 import {
   useLocation,
@@ -34,9 +34,7 @@ const Main = ({
   onEditTask,
 }) => {
 
-  const user = JSON.parse(
-  localStorage.getItem("loggedInUser")
-);
+  const user = Userdata;
 
   const location = useLocation();
 
@@ -255,35 +253,48 @@ const Main = ({
       </Tittlediv>
 
 
-      {location.pathname === "/dashboard" && (
-  <Carddiv>
-    {card.map((item) => (
-      <Cardbox
-        key={item.id}
-        style={{
-          backgroundColor: item.color,
-        }}
-      >
-        <h1 style={{ fontSize: "30px" }}>
-          {item.name}
-        </h1>
+      <Carddiv>
 
-        <h2>{item.count}</h2>
+        {card.map((item) => (
 
-        <p>{item.para}</p>
-      </Cardbox>
-    ))}
-  </Carddiv>
-)}
+          <Cardbox
+            key={item.id}
+            style={{
+              backgroundColor:
+                item.color,
+            }}
+          >
+
+            <h1
+              style={{
+                fontSize: "30px",
+              }}
+            >
+              {item.name}
+            </h1>
+
+            <h2>
+              {item.count}
+            </h2>
+
+            <p>
+              {item.para}
+            </p>
+
+          </Cardbox>
+
+        ))}
+
+      </Carddiv>
+
 
 
 
       <Tasklist>
-        <h1>Your Task</h1>
-              
+
         {filteredTasks.length === 0 ? (
 
-          <p style={{textAlign:"center"}}>
+          <p>
             No tasks found.
           </p>
 
@@ -292,6 +303,8 @@ const Main = ({
           filteredTasks.map((task) => (
 
             <List key={task.id}>
+
+
               
 
               <TaskInfo>

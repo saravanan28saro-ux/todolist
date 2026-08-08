@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 import {
@@ -17,20 +18,18 @@ import {
   LinkButton,
 } from "./styledcomponents";
 
-import { useLocation, useNavigate } from "react-router-dom";
-
 import {
-  loginUser,
-} from "../Data/auth";
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
+import { loginUser } from "../Data/auth";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
@@ -39,41 +38,36 @@ const Login = () => {
     location.state?.message || ""
   );
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setError("");
     setSuccess("");
 
-
-    if (!email || !password) {
-      setError("Please enter email and password.");
+    if (!email.trim() || !password.trim()) {
+      setError(
+        "Please enter email and password."
+      );
       return;
     }
 
-
-    const result = loginUser(
-      email,
-      password
-    );
-
+    const result = loginUser({
+      email: email.trim(),
+      password,
+    });
 
     if (!result.success) {
       setError(result.message);
       return;
     }
 
-
     navigate("/my-task", {
       replace: true,
     });
   };
 
-
   return (
     <AuthContainer>
-
       <AuthCard>
 
         <Logo>
@@ -88,32 +82,24 @@ const Login = () => {
           Login to manage your tasks
         </Subtitle>
 
-
         {success && (
           <SuccessMessage>
             <i className="bi bi-check-circle"></i>
-
             {success}
           </SuccessMessage>
         )}
 
-
         {error && (
           <ErrorMessage>
             <i className="bi bi-exclamation-circle"></i>
-
             {error}
           </ErrorMessage>
         )}
 
-
         <Form onSubmit={handleSubmit}>
 
           <FormGroup>
-
-            <Label>
-              Email ID
-            </Label>
+            <Label>Email ID</Label>
 
             <Input
               type="email"
@@ -123,15 +109,10 @@ const Login = () => {
                 setEmail(e.target.value)
               }
             />
-
           </FormGroup>
 
-
           <FormGroup>
-
-            <Label>
-              Password
-            </Label>
+            <Label>Password</Label>
 
             <Input
               type="password"
@@ -141,18 +122,14 @@ const Login = () => {
                 setPassword(e.target.value)
               }
             />
-
           </FormGroup>
-
 
           <SubmitButton type="submit">
             <i className="bi bi-box-arrow-in-right"></i>
-
             Login
           </SubmitButton>
 
         </Form>
-
 
         <BottomText>
           Don't have an account?
@@ -168,9 +145,9 @@ const Login = () => {
         </BottomText>
 
       </AuthCard>
-
     </AuthContainer>
   );
 };
 
 export default Login;
+
