@@ -1,11 +1,17 @@
-
 import React, { useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import Header from "./components/Headerfile/Header";
 import Main from "./components/Maindiv/Main";
-
 import AddTask from "./components/AddTask/AddTask.jsx";
+
+import Login from "./components/Auth/Login";
+import Signup from "./components/Auth/Signup";
 
 import {
   getTasks,
@@ -14,28 +20,29 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-
-function App() {
-
-  // Tasks
-  const [tasks, setTasks] = useState(
-    getTasks()
-  );
-
-  // Add/Edit popup
-  const [showAddTask, setShowAddTask] =
-    useState(false);
-
-  // Task currently being edited
-  const [editTask, setEditTask] =
-    useState(null);
+import {
+  getCurrentUser,
+  isLoggedIn,
+} from "./components/Data/auth";
 
 
-  // =========================
+// ============================
+// DASHBOARD
+// ============================
+
+function Dashboard() {
+  const [tasks, setTasks] = useState(getTasks());
+
+  const [showAddTask, setShowAddTask] = useState(false);
+
+  const [editTask, setEditTask] = useState(null);
+
+
+  // ============================
   // ADD TASK
-  // =========================
-  const handleAddTask = (task) => {
+  // ============================
 
+  const handleAddTask = (task) => {
     addTask(task);
 
     setTasks(getTasks());
@@ -46,14 +53,11 @@ function App() {
   };
 
 
-  // =========================
+  // ============================
   // UPDATE TASK
-  // =========================
-  const handleUpdateTask = (
-    id,
-    updatedTask
-  ) => {
+  // ============================
 
+  const handleUpdateTask = (id, updatedTask) => {
     updateTask(id, updatedTask);
 
     setTasks(getTasks());
@@ -64,11 +68,11 @@ function App() {
   };
 
 
-  // =========================
+  // ============================
   // DELETE TASK
-  // =========================
-  const handleDeleteTask = (id) => {
+  // ============================
 
+  const handleDeleteTask = (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this task?"
     );
@@ -83,22 +87,22 @@ function App() {
   };
 
 
-  // =========================
-  // OPEN EDIT
-  // =========================
-  const handleEditTask = (task) => {
+  // ============================
+  // EDIT TASK
+  // ============================
 
+  const handleEditTask = (task) => {
     setEditTask(task);
 
     setShowAddTask(true);
   };
 
 
-  // =========================
-  // CLOSE POPUP
-  // =========================
-  const handleCancel = () => {
+  // ============================
+  // CANCEL
+  // ============================
 
+  const handleCancel = () => {
     setShowAddTask(false);
 
     setEditTask(null);
@@ -106,50 +110,88 @@ function App() {
 
 
   return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        minHeight: "100vh",
+        width: "100%",
+      }}
+    >
+
+      <Header
+        setShowAddTask={setShowAddTask}
+      />
+
+
+      <Main
+        tasks={tasks}
+        onDeleteTask={handleDeleteTask}
+        onUpdateTask={handleUpdateTask}
+        onEditTask={handleEditTask}
+      />
+
+
+      {showAddTask && (
+        <AddTask
+          editTask={editTask}
+          onAddTask={handleAddTask}
+          onUpdateTask={handleUpdateTask}
+          onCancel={handleCancel}
+        />
+      )}
+
+    </div>
+  );
+}
+
+
+// ============================
+// PROTECTED ROUTE
+// ============================
+
+const ProtectedRoute = ({ children }) => {
+  if (!isLoggedIn()) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
+
+// ============================
+// APP
+// ============================
+
+function App() {
+  return (
     <BrowserRouter>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          minHeight: "100vh",
-          width: "100%",
-        }}
-      >
+      <Routes>
 
-        {/* HEADER */}
-        <Header
-          setShowAddTask={setShowAddTask}
+        <Route
+          path="/login"
+          element={<Login />}
         />
 
-
-        {/* MAIN */}
-        <Main
-          tasks={tasks}
-          onDeleteTask={handleDeleteTask}
-          onUpdateTask={handleUpdateTask}
-          onEditTask={handleEditTask}
+        <Route
+          path="/signup"
+          element={<Signup />}
         />
 
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
-
-
-        {/* ADD / EDIT POPUP */}
-        {showAddTask && (
-          <AddTask
-            editTask={editTask}
-            onAddTask={handleAddTask}
-            onUpdateTask={handleUpdateTask}
-            onCancel={handleCancel}
-          />
-        )}
-
-      </div>
+      </Routes>
 
     </BrowserRouter>
   );
 }
 
-
 export default App;
-

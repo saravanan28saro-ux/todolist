@@ -2,228 +2,361 @@ import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 
 export const MainDiv = styled.div`
-  border-top: none;
   min-height: 100vh;
   width: 100%;
+
+  background: #f8fafc;
+
   box-sizing: border-box;
+
   overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    padding-top: 70px;
+  }
 `;
 
 export const Tittlediv = styled.div`
-  padding: 20px;
+  padding: 25px 30px;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
   gap: 20px;
 
-  @media (max-width: 768px) {
-    padding: 15px;
-    padding-top: 70px;
+  background: #ffffff;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  box-sizing: border-box;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
   }
 
-  @media (max-width: 480px) {
-    padding: 15px 10px;
-    padding-top: 70px;
+  p {
+    margin: 6px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
   }
 `;
 
 export const SearchBox = styled.div`
   position: relative;
+
   width: 300px;
 
   @media (max-width: 768px) {
-    width: 250px;
-  }
-
-  @media (max-width: 480px) {
     width: 100%;
   }
 `;
 
 export const SearchIcon = styled(FiSearch)`
   position: absolute;
-  left: 12px;
+
+  left: 14px;
   top: 50%;
+
   transform: translateY(-50%);
-  color: gray;
+
+  color: #9ca3af;
+
   font-size: 18px;
+
+  pointer-events: none;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 10px 10px 10px 40px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+
+  padding: 12px 15px 12px 42px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 10px;
+
   outline: none;
+
+  background: #f9fafb;
+
+  color: #111827;
+
+  font-size: 14px;
+
   box-sizing: border-box;
 
+  transition: all 0.25s ease;
+
   &:focus {
-    border-color: blue;
-    box-shadow: 0 0 0 3px rgba(0, 0, 255, 0.08);
+    background: white;
+
+    border-color: #2563eb;
+
+    box-shadow:
+      0 0 0 3px
+      rgba(37, 99, 235, 0.1);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
   }
 `;
 
 export const Carddiv = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 0 20px;
+  display: grid;
+  
 
-  @media (max-width: 768px) {
-    gap: 15px;
-    padding: 0 15px;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 20px;
+
+  padding: 25px 30px;
+
+  box-sizing: border-box;
+
+  @media (max-width: 1100px) {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
-  @media (max-width: 480px) {
-    gap: 12px;
-    padding: 0 10px;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+
+    padding: 15px;
   }
 `;
 
 export const Cardbox = styled.div`
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
-  width: 20%;
-  box-sizing: border-box;
+  min-height: 145px;
 
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  @media (max-width: 1200px) {
-    width: 22%;
-  }
-
-  @media (max-width: 768px) {
-    width: 45%;
-  }
-
-  @media (max-width: 480px) {
-    width: 100%;
-  }
-`;
-
-export const Tasklist = styled.div`
-  margin-top: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
   padding: 20px;
+
+  border-radius: 16px;
+
+  color: white;
+
   box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.08);
 
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
-export const List = styled.div`
-  width: 100%;
-  min-height: 80px;
-  padding: 18px 20px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-
-  transition: all 0.25s ease;
-  box-sizing: border-box;
+  cursor: default;
 
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    border-color: #2563eb;
+    transform: translateY(-5px);
+
+    box-shadow:
+      0 12px 25px rgba(0, 0, 0, 0.14);
   }
 
-  @media (max-width: 480px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
-
-export const TaskInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  h3 {
+  h1 {
     margin: 0;
-    font-size: 17px;
+
+    font-size: 16px !important;
+
     font-weight: 600;
-    color: #1f2937;
+  }
+
+  h2 {
+    margin: 15px 0 5px;
+
+    font-size: 32px;
+
+    font-weight: 700;
   }
 
   p {
     margin: 0;
+
     font-size: 13px;
+
+    opacity: 0.9;
+  }
+`;
+export const Tasklist = styled.div`
+  margin-top: 5px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  width: 100%;
+
+  padding: 0 30px 30px;
+
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 0 15px 20px;
+  }
+`;
+export const List = styled.div`
+  width: 100%;
+
+  min-height: 75px;
+
+  padding: 16px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  background: white;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04);
+
+  box-sizing: border-box;
+
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+
+    border-color: #bfdbfe;
+
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+`;
+export const TaskInfo = styled.div`
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  h3 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+  }
+
+  p {
+    margin: 0;
+
     color: #6b7280;
+
+    font-size: 13px;
   }
 `;
 
 export const TaskDetails = styled.div`
   display: flex;
-  align-items: center;
-  gap: 12px;
 
-  @media (max-width: 480px) {
-    justify-content: space-between;
-    flex-wrap: wrap;
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+
+  @media (max-width: 650px) {
+    width: 100%;
+
+    justify-content: flex-end;
   }
 `;
-
 export const Priority = styled.span`
   padding: 5px 10px;
+
   border-radius: 20px;
 
-  font-size: 12px;
+  font-size: 11px;
+
   font-weight: 600;
 
   background: #fff7ed;
+
   color: #ea580c;
+
+  white-space: nowrap;
 `;
 
 export const Status = styled.span`
   padding: 5px 10px;
+
   border-radius: 20px;
 
-  font-size: 12px;
+  font-size: 11px;
+
   font-weight: 600;
 
   background: #ecfdf5;
+
   color: #059669;
+
+  white-space: nowrap;
 `;
-
 export const ActionButton = styled.button`
-  border: none;
-  background: transparent;
+  width: 34px;
 
-  padding: 7px;
-  border-radius: 6px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: none;
+
+  background: #f3f4f6;
+
+  color: #4b5563;
+
+  border-radius: 8px;
 
   cursor: pointer;
-  font-size: 18px;
+
+  font-size: 15px;
 
   transition: all 0.2s ease;
 
   &:hover {
-    background: #f3f4f6;
-    transform: scale(1.1);
+    background: #dbeafe;
+
+    color: #2563eb;
+
+    transform: translateY(-2px);
   }
 `;

@@ -35,11 +35,5 @@ export const list = [
     icon: "bi-star-fill",
     class: "inactive"
   },
-  {
-    name: "Logout",
-    path: "/logout",
-    icon: "bi-box-arrow-right",
-    class: "inactive"
-  },
  
 ];
