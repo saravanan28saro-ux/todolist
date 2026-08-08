@@ -28,13 +28,19 @@ export const Logodiv = styled.div`
     height:60%;
     `
 export const Button = styled.button`
-  border :0px solid gray;
+  border: 0;
   padding: 7px;
-  width:100%;
+  width: 100%;
   border-radius: 5px;
-  background-color: transparent;
-  color:black;
+  background-color: ${(props) => (props.active ? "blue" : "transparent")};
+  color: ${(props) => (props.active ? "white" : "black")};
   display: flex;
   justify-content: flex-start;
-  
-  `;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    color: blue;
+  }
+`;

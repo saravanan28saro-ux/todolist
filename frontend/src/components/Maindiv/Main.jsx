@@ -1,6 +1,23 @@
-import {MainDiv,Tittlediv,Input,SearchBox, SearchIcon,Carddiv,Cardbox} from "./styledcomponents";
+import {
+  MainDiv,
+  Tittlediv,
+  Input,
+  SearchBox,
+  SearchIcon,
+  Carddiv,
+  Cardbox,
+  Tasklist,
+  List,
+  TaskInfo,
+  TaskDetails,
+  Priority,
+  Status,
+  ActionButton,
+} from "./styledcomponents";
 import React, { useState } from "react";
 import Userdata from "../Data/userdata.jsx";
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+
 import {
   getTasks,
   addTask,
@@ -14,6 +31,7 @@ const Main = () => {
     const user=Userdata;
     const Task=getTasks();
     const card=getCardData();
+    
     return (
         <MainDiv>
             <Tittlediv>
@@ -35,6 +53,45 @@ const Main = () => {
                     </Cardbox>
                 ))}
             </Carddiv>
+            <Tasklist>
+  {Task.map((task) => (
+    <List key={task.id}>
+
+      <TaskInfo>
+        <h3>{task.taskname}</h3>
+
+        <p>
+          <i className="bi bi-calendar3"></i>{" "}
+          {task.date} &nbsp; • &nbsp;
+          <i className="bi bi-clock"></i>{" "}
+          {task.time}
+        </p>
+      </TaskInfo>
+
+      <TaskDetails>
+
+        <Priority>
+          {task.priority}
+        </Priority>
+
+        <Status>
+          {task.status}
+        </Status>
+
+        <ActionButton>
+          <i className="bi bi-pencil"></i>
+        </ActionButton>
+
+        <ActionButton>
+          <i className="bi bi-trash"></i>
+        </ActionButton>
+
+      </TaskDetails>
+
+    </List>
+  ))}
+</Tasklist>
+            
         </MainDiv>)};
 
 export default Main;
