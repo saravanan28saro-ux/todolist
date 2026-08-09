@@ -61,9 +61,9 @@ const Login = () => {
       return;
     }
 
-    navigate("/my-task", {
-      replace: true,
-    });
+    navigate("/dashboard", {
+  replace: true,
+});
   };
 
   return (

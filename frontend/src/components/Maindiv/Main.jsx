@@ -20,7 +20,7 @@ import React, {
   useState,
 } from "react";
 
-import Userdata from "../Data/userdata.jsx";
+import { getCurrentUser } from "../Data/Auth";
 
 import {
   useLocation,
@@ -34,23 +34,24 @@ const Main = ({
   onEditTask,
 }) => {
 
-  const user = Userdata;
+  const user = getCurrentUser();
+
+
+
 
   const location = useLocation();
+
 
   const [search, setSearch] =
     useState("");
 
 
-  
   const Task = tasks || [];
-
 
 
   let filteredTasks = Task;
 
 
-  
   if (
     location.pathname === "/my-task"
   ) {
@@ -60,7 +61,6 @@ const Main = ({
   }
 
 
-  
   else if (
     location.pathname === "/completed"
   ) {
@@ -73,7 +73,6 @@ const Main = ({
   }
 
 
-  
   else if (
     location.pathname === "/priority"
   ) {
@@ -87,7 +86,6 @@ const Main = ({
   }
 
 
-  
   else if (
     location.pathname === "/today"
   ) {
@@ -95,6 +93,7 @@ const Main = ({
     const today = new Date()
       .toISOString()
       .split("T")[0];
+
 
     filteredTasks = Task.filter(
       (task) =>
@@ -104,7 +103,6 @@ const Main = ({
   }
 
 
-  
   else if (
     location.pathname === "/upcoming"
   ) {
@@ -112,6 +110,7 @@ const Main = ({
     const today = new Date()
       .toISOString()
       .split("T")[0];
+
 
     filteredTasks = Task.filter(
       (task) =>
@@ -122,18 +121,15 @@ const Main = ({
   }
 
 
-
-
   filteredTasks =
-    filteredTasks.filter((task) =>
-      task.taskname
-        .toLowerCase()
-        .includes(
-          search.toLowerCase()
-        )
+    filteredTasks.filter(
+      (task) =>
+        task.taskname
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          )
     );
-
-
 
 
   const card = [
@@ -146,6 +142,7 @@ const Main = ({
       color: "blue",
     },
 
+
     {
       id: 2,
       name: "Pending",
@@ -157,6 +154,7 @@ const Main = ({
       color: "orange",
     },
 
+
     {
       id: 3,
       name: "Completed",
@@ -167,6 +165,7 @@ const Main = ({
       para: "Well done",
       color: "green",
     },
+
 
     {
       id: 4,
@@ -181,8 +180,6 @@ const Main = ({
     },
 
   ];
-
-
 
 
   const handleStatusClick = (task) => {
@@ -208,7 +205,6 @@ const Main = ({
     <MainDiv>
 
 
-
       <Tittlediv>
 
         <div>
@@ -219,19 +215,22 @@ const Main = ({
               fontWeight: "bold",
             }}
           >
-            Welcome, {user.name}!
+            Welcome, {user?.name || "User"}!
           </h1>
 
+
           <p>
+
             You have{" "}
+
             {filteredTasks.length}{" "}
+
             tasks here!
+
           </p>
 
         </div>
 
-
-        
 
         <SearchBox>
 
@@ -253,41 +252,48 @@ const Main = ({
       </Tittlediv>
 
 
-      <Carddiv>
 
-        {card.map((item) => (
+      {location.pathname === "/dashboard" && (
 
-          <Cardbox
-            key={item.id}
-            style={{
-              backgroundColor:
-                item.color,
-            }}
-          >
+        <Carddiv>
 
-            <h1
-              style={{
-                fontSize: "30px",
-              }}
-            >
-              {item.name}
-            </h1>
+          {card.map(
+            (item) => (
 
-            <h2>
-              {item.count}
-            </h2>
+              <Cardbox
+                key={item.id}
+                style={{
+                  backgroundColor:
+                    item.color,
+                }}
+              >
 
-            <p>
-              {item.para}
-            </p>
-
-          </Cardbox>
-
-        ))}
-
-      </Carddiv>
+                <h1
+                  style={{
+                    fontSize: "30px",
+                  }}
+                >
+                  {item.name}
+                </h1>
 
 
+                <h2>
+                  {item.count}
+                </h2>
+
+
+                <p>
+                  {item.para}
+                </p>
+
+              </Cardbox>
+
+            )
+          )}
+
+        </Carddiv>
+
+      )}
 
 
       <Tasklist>
@@ -300,111 +306,114 @@ const Main = ({
 
         ) : (
 
-          filteredTasks.map((task) => (
+          filteredTasks.map(
+            (task) => (
 
-            <List key={task.id}>
-
-
-              
-
-              <TaskInfo>
-
-                <h3>
-                  {task.taskname}
-                </h3>
-
-                <p>
-
-                  <i className="bi bi-calendar3"></i>{" "}
-
-                  {task.date}
-
-                  &nbsp; • &nbsp;
-
-                  <i className="bi bi-clock"></i>{" "}
-
-                  {task.time}
-
-                </p>
-
-              </TaskInfo>
+              <List
+                key={task.id}
+              >
 
 
-              
+                <TaskInfo>
 
-              <TaskDetails>
-
-
-                
-
-                <Priority>
-                  {task.priority}
-                </Priority>
+                  <h3>
+                    {task.taskname}
+                  </h3>
 
 
-                
+                  <p>
 
-                <Status
-                  onClick={() =>
-                    handleStatusClick(
-                      task
-                    )
-                  }
-                  style={{
-                    cursor:
+                    <i className="bi bi-calendar3"></i>{" "}
+
+                    {task.date}
+
+                    &nbsp; • &nbsp;
+
+                    <i className="bi bi-clock"></i>{" "}
+
+                    {task.time}
+
+                  </p>
+
+                </TaskInfo>
+
+
+                <TaskDetails>
+
+
+                  <Priority>
+                    {task.priority}
+                  </Priority>
+
+
+                  <Status
+
+                    onClick={() =>
+                      handleStatusClick(
+                        task
+                      )
+                    }
+
+                    style={{
+                      cursor:
+                        task.status ===
+                        "Pending"
+                          ? "pointer"
+                          : "default",
+                    }}
+
+                    title={
                       task.status ===
                       "Pending"
-                        ? "pointer"
-                        : "default",
-                  }}
-                  title={
-                    task.status ===
-                    "Pending"
-                      ? "Click to complete"
-                      : ""
-                  }
-                >
-                  {task.status}
-                </Status>
+                        ? "Click to complete"
+                        : ""
+                    }
+                  >
+                    {task.status}
+                  </Status>
 
 
-                
+                  <ActionButton
 
-                <ActionButton
-                  onClick={() =>
-                    onEditTask(task)
-                  }
-                  title="Edit task"
-                >
-                  <i className="bi bi-pencil"></i>
-                </ActionButton>
+                    onClick={() =>
+                      onEditTask(task)
+                    }
+
+                    title="Edit task"
+                  >
+                    <i className="bi bi-pencil"></i>
+                  </ActionButton>
 
 
-                
+                  <ActionButton
 
-                <ActionButton
-                  onClick={() =>
-                    onDeleteTask(
-                      task.id
-                    )
-                  }
-                  title="Delete task"
-                >
-                  <i className="bi bi-trash"></i>
-                </ActionButton>
+                    onClick={() =>
+                      onDeleteTask(
+                        task.id
+                      )
+                    }
 
-              </TaskDetails>
+                    title="Delete task"
+                  >
+                    <i className="bi bi-trash"></i>
+                  </ActionButton>
 
-            </List>
 
-          ))
+                </TaskDetails>
+
+              </List>
+
+            )
+          )
 
         )}
 
       </Tasklist>
 
     </MainDiv>
+
   );
+
 };
 
 

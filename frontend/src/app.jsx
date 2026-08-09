@@ -22,16 +22,17 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-import { isLoggedIn } from "./components/Data/auth";
+import {
+  isLoggedIn,
+} from "./components/Data/Auth";
 
 
-// ============================
-// DASHBOARD
-// ============================
+
 
 function Dashboard() {
 
-  const [tasks, setTasks] = useState(getTasks());
+  const [tasks, setTasks] =
+    useState(() => getTasks());
 
   const [showAddTask, setShowAddTask] =
     useState(false);
@@ -39,10 +40,6 @@ function Dashboard() {
   const [editTask, setEditTask] =
     useState(null);
 
-
-  // ============================
-  // ADD TASK
-  // ============================
 
   const handleAddTask = (task) => {
 
@@ -53,6 +50,7 @@ function Dashboard() {
     setShowAddTask(false);
 
     setEditTask(null);
+
   };
 
 
@@ -60,59 +58,62 @@ function Dashboard() {
   // UPDATE TASK
   // ============================
 
-  const handleUpdateTask = (id, updatedTask) => {
+  const handleUpdateTask = (
+    id,
+    updatedTask
+  ) => {
 
-    updateTask(id, updatedTask);
+    updateTask(
+      id,
+      updatedTask
+    );
 
     setTasks(getTasks());
 
     setShowAddTask(false);
 
     setEditTask(null);
+
   };
 
 
-  // ============================
-  // DELETE TASK
-  // ============================
-
   const handleDeleteTask = (id) => {
 
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
+    const confirmDelete =
+      window.confirm(
+        "Are you sure you want to delete this task?"
+      );
+
 
     if (!confirmDelete) {
       return;
     }
 
+
     deleteTask(id);
 
     setTasks(getTasks());
+
   };
 
 
-  // ============================
-  // EDIT TASK
-  // ============================
 
   const handleEditTask = (task) => {
 
     setEditTask(task);
 
     setShowAddTask(true);
+
   };
 
 
-  // ============================
-  // CANCEL
-  // ============================
 
   const handleCancel = () => {
 
     setShowAddTask(false);
 
     setEditTask(null);
+
   };
 
 
@@ -128,15 +129,23 @@ function Dashboard() {
     >
 
       <Header
-        setShowAddTask={setShowAddTask}
+        setShowAddTask={
+          setShowAddTask
+        }
       />
 
 
       <Main
         tasks={tasks}
-        onDeleteTask={handleDeleteTask}
-        onUpdateTask={handleUpdateTask}
-        onEditTask={handleEditTask}
+        onDeleteTask={
+          handleDeleteTask
+        }
+        onUpdateTask={
+          handleUpdateTask
+        }
+        onEditTask={
+          handleEditTask
+        }
       />
 
 
@@ -144,23 +153,29 @@ function Dashboard() {
 
         <AddTask
           editTask={editTask}
-          onAddTask={handleAddTask}
-          onUpdateTask={handleUpdateTask}
-          onCancel={handleCancel}
+          onAddTask={
+            handleAddTask
+          }
+          onUpdateTask={
+            handleUpdateTask
+          }
+          onCancel={
+            handleCancel
+          }
         />
 
       )}
 
     </div>
+
   );
+
 }
 
 
-// ============================
-// PROTECTED ROUTE
-// ============================
-
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({
+  children,
+}) => {
 
   if (!isLoggedIn()) {
 
@@ -170,35 +185,14 @@ const ProtectedRoute = ({ children }) => {
         replace
       />
     );
+
   }
 
-  return children;
-};
-
-
-// ============================
-// PUBLIC ROUTE
-// ============================
-
-const PublicRoute = ({ children }) => {
-
-  if (isLoggedIn()) {
-
-    return (
-      <Navigate
-        to="/my-task"
-        replace
-      />
-    );
-  }
 
   return children;
+
 };
 
-
-// ============================
-// APP
-// ============================
 
 function App() {
 
@@ -207,63 +201,22 @@ function App() {
     <BrowserRouter>
 
       <Routes>
-
-        {/* LOGIN */}
-
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-
-
-        {/* SIGNUP */}
-
-        <Route
-          path="/signup"
-          element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          }
-        />
-
-
-        {/* DASHBOARD */}
-
-        <Route
-          path="/my-task"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-
-        {/* ANY UNKNOWN URL */}
-
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to={
-                isLoggedIn()
-                  ? "/my-task"
-                  : "/login"
-              }
-              replace
-            />
-          }
-        />
-
-      </Routes>
+  <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/my-task" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/today" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/upcoming" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/completed" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/priority" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+  <Route path="/" element={<Navigate to="/dashboard" replace />} />
+  <Route path="*" element={<Navigate to="/dashboard" replace />} />
+</Routes>
 
     </BrowserRouter>
+
   );
+
 }
 
 

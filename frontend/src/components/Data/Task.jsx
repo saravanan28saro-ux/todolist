@@ -1,39 +1,47 @@
 
+const getCurrentUser = () => {
+  const data = localStorage.getItem(
+    "currentUser"
+  );
 
-const getStoredTasks = () => {
-  const storedTasks = localStorage.getItem("tasks");
-
-  if (storedTasks) {
-    return JSON.parse(storedTasks);
+  if (!data) {
+    return null;
   }
 
-  
-  const defaultTasks = [
-    {
-      id: 1,
-      taskname: "Write the homework",
-      date: "2026-08-10",
-      time: "10:00",
-      priority: "High",
-      status: "Completed",
-    },
-    {
-      id: 2,
-      taskname: "Read the book",
-      date: "2026-08-11",
-      time: "14:00",
-      priority: "High",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      taskname: "Learn React",
-      date: "2026-08-12",
-      time: "17:00",
-      priority: "Low",
-      status: "Pending",
-    },
-  ];
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    return null;
+  }
+};
+
+const getStoredTasks = () => {
+
+  const storedTasks =
+    localStorage.getItem("tasks");
+
+
+  if (storedTasks) {
+
+    try {
+
+      const tasks = JSON.parse(
+        storedTasks
+      );
+
+      return Array.isArray(tasks)
+        ? tasks
+        : [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+  }
+
+
+  const defaultTasks = [];
 
   localStorage.setItem(
     "tasks",
@@ -44,38 +52,83 @@ const getStoredTasks = () => {
 };
 
 
-
 const saveTasks = (tasks) => {
+
   localStorage.setItem(
     "tasks",
     JSON.stringify(tasks)
   );
-};
 
+};
 
 
 export const getTasks = () => {
-  return getStoredTasks();
+
+  const currentUser =
+    getCurrentUser();
+
+  if (!currentUser) {
+    return [];
+  }
+
+
+  const tasks =
+    getStoredTasks();
+
+
+  return tasks.filter(
+    (task) =>
+      String(task.userId) ===
+      String(currentUser.id)
+  );
+
 };
 
 
-
 export const addTask = (task) => {
-  const tasks = getStoredTasks();
+
+  const currentUser =
+    getCurrentUser();
+
+
+  if (!currentUser) {
+
+    return null;
+
+  }
+
+
+  const tasks =
+    getStoredTasks();
+
 
   const newTask = {
+
     id: Date.now(),
+
+    userId: currentUser.id,
+
     ...task,
+
   };
 
+
   const updatedTasks = [
+
     ...tasks,
+
     newTask,
+
   ];
 
-  saveTasks(updatedTasks);
+
+  saveTasks(
+    updatedTasks
+  );
+
 
   return newTask;
+
 };
 
 
@@ -84,78 +137,178 @@ export const updateTask = (
   id,
   updatedTask
 ) => {
-  const tasks = getStoredTasks();
 
-  const updatedTasks = tasks.map((task) =>
-    task.id === id
-      ? {
+  const currentUser =
+    getCurrentUser();
+
+
+  if (!currentUser) {
+
+    return [];
+
+  }
+
+
+  const tasks =
+    getStoredTasks();
+
+
+  const updatedTasks =
+    tasks.map((task) => {
+
+      if (
+        task.id === id &&
+        String(task.userId) ===
+          String(currentUser.id)
+      ) {
+
+        return {
+
           ...task,
+
           ...updatedTask,
-        }
-      : task
+
+        };
+
+      }
+
+
+      return task;
+
+    });
+
+
+  saveTasks(
+    updatedTasks
   );
 
-  saveTasks(updatedTasks);
 
-  return updatedTasks;
+  return updatedTasks.filter(
+    (task) =>
+      String(task.userId) ===
+      String(currentUser.id)
+  );
+
 };
 
 
+export const deleteTask = (
+  id
+) => {
 
-export const deleteTask = (id) => {
-  const tasks = getStoredTasks();
+  const currentUser =
+    getCurrentUser();
 
-  const updatedTasks = tasks.filter(
-    (task) => task.id !== id
+
+  if (!currentUser) {
+
+    return [];
+
+  }
+
+
+  const tasks =
+    getStoredTasks();
+
+
+  const updatedTasks =
+    tasks.filter(
+      (task) =>
+        !(
+          task.id === id &&
+          String(task.userId) ===
+            String(currentUser.id)
+        )
+    );
+
+
+  saveTasks(
+    updatedTasks
   );
 
-  saveTasks(updatedTasks);
 
-  return updatedTasks;
+  return updatedTasks.filter(
+    (task) =>
+      String(task.userId) ===
+      String(currentUser.id)
+  );
+
 };
-
 
 
 export const getCardData = () => {
-  const tasks = getStoredTasks();
+
+  const tasks =
+    getTasks();
+
 
   return [
+
     {
       id: 1,
+
       name: "Total Tasks",
+
       count: tasks.length,
+
       para: "All time tasks",
+
       color: "blue",
     },
+
+
     {
       id: 2,
+
       name: "Pending",
+
       count: tasks.filter(
-        (task) => task.status === "Pending"
+        (task) =>
+          task.status ===
+          "Pending"
       ).length,
+
       para: "Need to complete",
+
       color: "orange",
     },
+
+
     {
       id: 3,
+
       name: "Completed",
+
       count: tasks.filter(
-        (task) => task.status === "Completed"
+        (task) =>
+          task.status ===
+          "Completed"
       ).length,
+
       para: "Well done",
+
       color: "green",
     },
+
+
     {
       id: 4,
+
       name: "High Priority",
+
       count: tasks.filter(
         (task) =>
           task.priority === "High" &&
-          task.status !== "Completed"
+          task.status !==
+            "Completed"
       ).length,
+
       para: "Needs attention",
+
       color: "red",
     },
+
   ];
+
 };
 

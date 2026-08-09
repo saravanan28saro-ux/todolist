@@ -2,7 +2,7 @@
 const USERS_KEY = "users";
 const CURRENT_USER_KEY = "currentUser";
 
-// Get all users
+
 export const getUsers = () => {
   const data = localStorage.getItem(USERS_KEY);
 
@@ -18,7 +18,7 @@ export const getUsers = () => {
   }
 };
 
-// Signup
+
 export const signupUser = ({
   name,
   email,
@@ -66,7 +66,7 @@ export const signupUser = ({
   };
 };
 
-// Login
+
 export const loginUser = ({
   email,
   password,
@@ -112,7 +112,7 @@ export const loginUser = ({
   };
 };
 
-// Get current logged-in user
+
 export const getCurrentUser = () => {
   const data = localStorage.getItem(
     CURRENT_USER_KEY
@@ -129,14 +129,14 @@ export const getCurrentUser = () => {
   }
 };
 
-// Logout
+
 export const logoutUser = () => {
   localStorage.removeItem(
     CURRENT_USER_KEY
   );
 };
 
-// Check login
+
 export const isLoggedIn = () => {
   return Boolean(
     localStorage.getItem(

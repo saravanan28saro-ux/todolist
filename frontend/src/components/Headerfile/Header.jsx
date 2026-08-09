@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 import {
@@ -23,21 +24,27 @@ import {
 
 import {
   logoutUser,
-} from "../Data/auth";
+} from "../Data/Auth";
 
 
-const Header = ({ setShowAddTask }) => {
+const Header = ({
+  setShowAddTask,
+}) => {
 
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] =
+    useState(false);
 
 
-  const handleNavigate = (path) => {
+  const handleNavigate = (
+    path
+  ) => {
 
     navigate(path);
 
     setOpen(false);
+
   };
 
 
@@ -54,10 +61,12 @@ const Header = ({ setShowAddTask }) => {
           "Successfully logged out.",
       },
     });
+
   };
 
 
   return (
+
     <>
 
       <MenuButton
@@ -82,11 +91,13 @@ const Header = ({ setShowAddTask }) => {
           ></i>
 
           <div>
+
             <h3>TaskApp</h3>
 
             <p>
               Do your work daily
             </p>
+
           </div>
 
         </Logodiv>
@@ -98,28 +109,18 @@ const Header = ({ setShowAddTask }) => {
             (item, index) => (
 
               <Button
-                key={index}
+  key={index}
+  $active={item.class === "active"}
+  onClick={() =>
+    handleNavigate(item.path)
+  }
+>
+  <i
+    className={`bi ${item.icon}`}
+  ></i>
 
-                onClick={() =>
-                  handleNavigate(
-                    item.path
-                  )
-                }
-              >
-
-                <i
-                  style={{
-                    marginRight: "15px",
-                  }}
-
-                  className={
-                    `bi ${item.icon}`
-                  }
-                ></i>
-
-                {item.name}
-
-              </Button>
+  {item.name}
+</Button>
 
             )
           )}
@@ -139,9 +140,9 @@ const Header = ({ setShowAddTask }) => {
 
           <i
             style={{
-              marginRight: "15px",
+              marginRight:
+                "15px",
             }}
-
             className="bi bi-plus-circle"
           ></i>
 
@@ -154,9 +155,7 @@ const Header = ({ setShowAddTask }) => {
           onClick={handleLogout}
         >
 
-          <i
-            className="bi bi-box-arrow-right"
-          ></i>
+          <i className="bi bi-box-arrow-right"></i>
 
           Logout
 
@@ -165,8 +164,11 @@ const Header = ({ setShowAddTask }) => {
       </Headerdiv>
 
     </>
+
   );
+
 };
 
 
 export default Header;
+

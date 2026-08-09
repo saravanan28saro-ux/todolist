@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
 
-// ========================================
-// SIDEBAR
-// ========================================
-
 export const Headerdiv = styled.div`
   width: 260px;
   height: 100vh;
@@ -60,10 +56,6 @@ export const Headerdiv = styled.div`
 `;
 
 
-// ========================================
-// LOGO
-// ========================================
-
 export const Logodiv = styled.div`
   min-height: 70px;
 
@@ -111,9 +103,6 @@ export const Logodiv = styled.div`
 `;
 
 
-// ========================================
-// DASHBOARD MENU
-// ========================================
 
 export const Dashbord = styled.div`
   display: flex;
@@ -140,45 +129,32 @@ export const Dashbord = styled.div`
 `;
 
 
-// ========================================
-// MENU BUTTON
-// ========================================
-
 export const Button = styled.button`
   width: 100%;
-
   min-height: 44px;
-
   padding: 10px 13px;
 
   border: none;
-
   border-radius: 9px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: flex-start;
-
   gap: 12px;
 
   background: ${(props) =>
-    props.active
+    props.$active
       ? "#2563eb"
       : "transparent"};
 
   color: ${(props) =>
-    props.active
+    props.$active
       ? "#ffffff"
       : "#4b5563"};
 
   font-size: 14px;
-
   font-weight: 500;
-
   cursor: pointer;
-
   text-align: left;
 
   transition:
@@ -188,31 +164,24 @@ export const Button = styled.button`
 
   i {
     width: 20px;
-
     font-size: 17px;
-
     text-align: center;
   }
 
   &:hover {
     background: ${(props) =>
-      props.active
+      props.$active
         ? "#2563eb"
         : "#eff6ff"};
 
     color: ${(props) =>
-      props.active
+      props.$active
         ? "#ffffff"
         : "#2563eb"};
 
     transform: translateX(3px);
   }
 `;
-
-
-// ========================================
-// ADD TASK BUTTON
-// ========================================
 
 export const ADDbutton = styled.button`
   width: calc(100% - 20px);
@@ -274,10 +243,6 @@ export const ADDbutton = styled.button`
 `;
 
 
-// ========================================
-// MOBILE MENU BUTTON
-// ========================================
-
 export const MenuButton = styled.button`
   display: none;
 
@@ -331,11 +296,6 @@ export const MenuButton = styled.button`
     }
   }
 `;
-
-
-// ========================================
-// LOGOUT BUTTON
-// ========================================
 
 export const LogoutButton = styled.button`
   width: calc(100% - 20px);

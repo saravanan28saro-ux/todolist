@@ -1,38 +1,20 @@
 
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, {useEffect,useState} from "react";
 
-import {
-  AddTaskContainer,
-  AddTaskForm,
-  FormTitle,
-  FormGroup,
-  Label,
-  Input,
-  Select,
-  ButtonGroup,
-  SubmitButton,
-  CancelButton,
-} from "./styledcomponents";
+import {AddTaskContainer,AddTaskForm,FormTitle,FormGroup,Label,
+  Input,Select,ButtonGroup,SubmitButton,CancelButton,} from "./styledcomponents";
 
 
-const AddTask = ({
-  editTask,
-  onAddTask,
-  onUpdateTask,
-  onCancel,
-}) => {
+const AddTask = ({editTask,onAddTask,onUpdateTask,onCancel}) => {
 
   const [task, setTask] =
-    useState({
-      taskname: "",
-      date: "",
-      time: "",
-      priority: "Low",
-      status: "Pending",
-    });
+      useState({
+        taskname: "",
+        date: "",
+        time: "",
+        priority: "Low",
+        status: "Pending",
+      });
 
 
   
@@ -132,26 +114,12 @@ const AddTask = ({
 
     <AddTaskContainer>
 
-      <AddTaskForm
-        onSubmit={handleSubmit}
-      >
+      <AddTaskForm onSubmit={handleSubmit}>
 
-        <FormTitle>
-
-          {editTask
-            ? "Edit Task"
-            : "Add New Task"}
-
-        </FormTitle>
-
-
-      
+        <FormTitle>{editTask ? "Edit Task" : "Add New Task"}</FormTitle>
 
         <FormGroup>
-
-          <Label>
-            Task Name
-          </Label>
+          <Label>Task Name</Label>
 
           <Input
             type="text"
@@ -163,14 +131,8 @@ const AddTask = ({
 
         </FormGroup>
 
-
-        
-
         <FormGroup>
-
-          <Label>
-            Date
-          </Label>
+          <Label>Date</Label>
 
           <Input
             type="date"
@@ -178,17 +140,10 @@ const AddTask = ({
             value={task.date}
             onChange={handleChange}
           />
-
         </FormGroup>
 
-
-        
-
         <FormGroup>
-
-          <Label>
-            Time
-          </Label>
+          <Label>Time</Label>
 
           <Input
             type="time"
@@ -199,14 +154,8 @@ const AddTask = ({
 
         </FormGroup>
 
-
-        
-
         <FormGroup>
-
-          <Label>
-            Priority
-          </Label>
+          <Label>Priority</Label>
 
           <Select
             name="priority"
@@ -214,17 +163,11 @@ const AddTask = ({
             onChange={handleChange}
           >
 
-            <option value="Low">
-              Low
-            </option>
+            <option value="Low">Low</option>
 
-            <option value="Medium">
-              Medium
-            </option>
+            <option value="Medium">Medium</option>
 
-            <option value="High">
-              High
-            </option>
+            <option value="High">High</option>
 
           </Select>
 
@@ -235,9 +178,7 @@ const AddTask = ({
 
         <FormGroup>
 
-          <Label>
-            Status
-          </Label>
+          <Label>Status</Label>
 
           <Select
             name="status"
@@ -245,13 +186,9 @@ const AddTask = ({
             onChange={handleChange}
           >
 
-            <option value="Pending">
-              Pending
-            </option>
+            <option value="Pending">Pending</option>
 
-            <option value="Completed">
-              Completed
-            </option>
+            <option value="Completed">Completed</option>
 
           </Select>
 
@@ -262,17 +199,9 @@ const AddTask = ({
 
         <ButtonGroup>
 
-          <CancelButton
-            type="button"
-            onClick={onCancel}
-          >
-            Cancel
-          </CancelButton>
-
-
-          <SubmitButton
-            type="submit"
-          >
+          <CancelButton type="button" onClick={onCancel}> Cancel</CancelButton>
+          
+          <SubmitButton type="submit">
 
             <i
               className={
