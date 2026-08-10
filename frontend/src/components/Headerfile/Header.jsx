@@ -24,7 +24,7 @@ import {
 
 import {
   logoutUser,
-} from "../Data/Auth";
+} from "../Data/auth";
 
 
 const Header = ({
