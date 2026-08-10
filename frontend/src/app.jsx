@@ -24,7 +24,7 @@ import {
 
 import {
   isLoggedIn,
-} from "./components/Data/Auth";
+} from "./components/Data/auth";
 
 
 
@@ -54,9 +54,7 @@ function Dashboard() {
   };
 
 
-  // ============================
-  // UPDATE TASK
-  // ============================
+ 
 
   const handleUpdateTask = (
     id,
