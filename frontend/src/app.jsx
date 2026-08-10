@@ -23,7 +23,7 @@ import {
 } from "./components/Data/Task";
 
 import {
-  isLoggedIn,
+  isLoggedIn
 } from "./components/Data/Auth";
 
 
