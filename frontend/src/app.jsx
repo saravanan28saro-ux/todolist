@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import {
@@ -22,23 +21,16 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-import {
-  isLoggedIn
-} from "./components/Data/Auth";
-
-
+import { isLoggedIn } from "./components/Data/Auth";
 
 
 function Dashboard() {
 
-  const [tasks, setTasks] =
-    useState(() => getTasks());
+  const [tasks, setTasks] = useState(() => getTasks());
 
-  const [showAddTask, setShowAddTask] =
-    useState(false);
+  const [showAddTask, setShowAddTask] = useState(false);
 
-  const [editTask, setEditTask] =
-    useState(null);
+  const [editTask, setEditTask] = useState(null);
 
 
   const handleAddTask = (task) => {
@@ -50,50 +42,35 @@ function Dashboard() {
     setShowAddTask(false);
 
     setEditTask(null);
-
   };
 
 
- 
+  const handleUpdateTask = (id, updatedTask) => {
 
-  const handleUpdateTask = (
-    id,
-    updatedTask
-  ) => {
-
-    updateTask(
-      id,
-      updatedTask
-    );
+    updateTask(id, updatedTask);
 
     setTasks(getTasks());
 
     setShowAddTask(false);
 
     setEditTask(null);
-
   };
 
 
   const handleDeleteTask = (id) => {
 
-    const confirmDelete =
-      window.confirm(
-        "Are you sure you want to delete this task?"
-      );
-
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
 
     if (!confirmDelete) {
       return;
     }
 
-
     deleteTask(id);
 
     setTasks(getTasks());
-
   };
-
 
 
   const handleEditTask = (task) => {
@@ -101,9 +78,7 @@ function Dashboard() {
     setEditTask(task);
 
     setShowAddTask(true);
-
   };
-
 
 
   const handleCancel = () => {
@@ -111,12 +86,10 @@ function Dashboard() {
     setShowAddTask(false);
 
     setEditTask(null);
-
   };
 
 
   return (
-
     <div
       style={{
         display: "flex",
@@ -127,96 +100,141 @@ function Dashboard() {
     >
 
       <Header
-        setShowAddTask={
-          setShowAddTask
-        }
+        setShowAddTask={setShowAddTask}
       />
-
 
       <Main
         tasks={tasks}
-        onDeleteTask={
-          handleDeleteTask
-        }
-        onUpdateTask={
-          handleUpdateTask
-        }
-        onEditTask={
-          handleEditTask
-        }
+        onDeleteTask={handleDeleteTask}
+        onUpdateTask={handleUpdateTask}
+        onEditTask={handleEditTask}
       />
 
-
       {showAddTask && (
-
         <AddTask
           editTask={editTask}
-          onAddTask={
-            handleAddTask
-          }
-          onUpdateTask={
-            handleUpdateTask
-          }
-          onCancel={
-            handleCancel
-          }
+          onAddTask={handleAddTask}
+          onUpdateTask={handleUpdateTask}
+          onCancel={handleCancel}
         />
-
       )}
 
     </div>
-
   );
-
 }
 
 
-const ProtectedRoute = ({
-  children,
-}) => {
+const ProtectedRoute = ({ children }) => {
 
   if (!isLoggedIn()) {
-
     return (
       <Navigate
         to="/login"
         replace
       />
     );
-
   }
 
-
   return children;
-
 };
 
 
 function App() {
 
   return (
-
     <BrowserRouter>
 
       <Routes>
-  <Route path="/login" element={<Login />} />
-  <Route path="/signup" element={<Signup />} />
-  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/my-task" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/today" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/upcoming" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/completed" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/priority" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-  <Route path="/" element={<Navigate to="/dashboard" replace />} />
-  <Route path="*" element={<Navigate to="/dashboard" replace />} />
-</Routes>
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/signup"
+          element={<Signup />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/my-task"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/today"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/upcoming"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/completed"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/priority"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to="/dashboard"
+              replace
+            />
+          }
+        />
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/dashboard"
+              replace
+            />
+          }
+        />
+
+      </Routes>
 
     </BrowserRouter>
-
   );
-
 }
 
 
 export default App;
-

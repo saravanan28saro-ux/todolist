@@ -1,9 +1,9 @@
-
 const USERS_KEY = "users";
 const CURRENT_USER_KEY = "currentUser";
 
 
 export const getUsers = () => {
+
   const data = localStorage.getItem(USERS_KEY);
 
   if (!data) {
@@ -11,10 +11,15 @@ export const getUsers = () => {
   }
 
   try {
+
     const users = JSON.parse(data);
+
     return Array.isArray(users) ? users : [];
+
   } catch {
+
     return [];
+
   }
 };
 
@@ -25,6 +30,7 @@ export const signupUser = ({
   mobile,
   password,
 }) => {
+
   const users = getUsers();
 
   const cleanEmail = String(email)
@@ -39,10 +45,12 @@ export const signupUser = ({
   );
 
   if (existingUser) {
+
     return {
       success: false,
       message: "Email already registered.",
     };
+
   }
 
   const newUser = {
@@ -71,6 +79,7 @@ export const loginUser = ({
   email,
   password,
 }) => {
+
   const users = getUsers();
 
   const cleanEmail = String(email)
@@ -80,6 +89,7 @@ export const loginUser = ({
   const cleanPassword = String(password);
 
   const user = users.find((user) => {
+
     const storedEmail = String(user.email)
       .trim()
       .toLowerCase();
@@ -92,13 +102,16 @@ export const loginUser = ({
       storedEmail === cleanEmail &&
       storedPassword === cleanPassword
     );
+
   });
 
   if (!user) {
+
     return {
       success: false,
       message: "Invalid email or password.",
     };
+
   }
 
   localStorage.setItem(
@@ -114,6 +127,7 @@ export const loginUser = ({
 
 
 export const getCurrentUser = () => {
+
   const data = localStorage.getItem(
     CURRENT_USER_KEY
   );
@@ -123,25 +137,32 @@ export const getCurrentUser = () => {
   }
 
   try {
+
     return JSON.parse(data);
+
   } catch {
+
     return null;
+
   }
 };
 
 
 export const logoutUser = () => {
+
   localStorage.removeItem(
     CURRENT_USER_KEY
   );
+
 };
 
 
 export const isLoggedIn = () => {
+
   return Boolean(
     localStorage.getItem(
       CURRENT_USER_KEY
     )
   );
-};
 
+};
