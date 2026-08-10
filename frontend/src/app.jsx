@@ -21,7 +21,7 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-import  {isLoggedIn}  from "./components/Data/Auth.jsx";
+import { isLoggedIn } from "./components/Data/Auth.jsx";
 
 
 function Dashboard() {
@@ -127,12 +127,14 @@ function Dashboard() {
 const ProtectedRoute = ({ children }) => {
 
   if (!isLoggedIn()) {
+
     return (
       <Navigate
         to="/login"
         replace
       />
     );
+
   }
 
   return children;
