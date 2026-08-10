@@ -24,7 +24,7 @@ import {
 
 import {
   isLoggedIn,
-} from "./components/Data/auth";
+} from "./components/Data/Auth";
 
 
 
