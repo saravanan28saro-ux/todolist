@@ -11,15 +11,12 @@ export const getUsers = () => {
   }
 
   try {
-
     const users = JSON.parse(data);
 
     return Array.isArray(users) ? users : [];
 
   } catch {
-
     return [];
-
   }
 };
 
@@ -102,7 +99,6 @@ export const loginUser = ({
       storedEmail === cleanEmail &&
       storedPassword === cleanPassword
     );
-
   });
 
   if (!user) {
@@ -143,7 +139,6 @@ export const getCurrentUser = () => {
   } catch {
 
     return null;
-
   }
 };
 
