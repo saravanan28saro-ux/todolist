@@ -21,7 +21,7 @@ import {
   deleteTask,
 } from "./components/Data/Task";
 
-import { isLoggedIn } from "./components/Data/Auth.jsx";
+import { isLoggedIn } from "./components/Data/auth.jsx";
 
 
 function Dashboard() {

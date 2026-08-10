@@ -20,7 +20,7 @@ import React, {
   useState,
 } from "react";
 
-import { getCurrentUser } from "../Data/Auth";
+import { getCurrentUser } from "../Data/auth";
 
 import {
   useLocation,
